@@ -1,0 +1,26 @@
+@host = http://localhost:5218
+
+#######################
+# Animals
+#######################
+
+@animal_id_1 = ade23b68-fad4-4833-941a-a5f771ebe012
+@animal_id_2 = fb7472c3-3815-4e79-96af-354ab4b78f06
+
+###
+POST {{host}}/api/animals
+Content-Type: application/json
+
+{
+    "id": "{{animal_id_2}}",
+    "name": "Luna"
+}
+
+###
+GET {{host}}/api/animals/{{animal_id_1}}
+
+###
+GET {{host}}/api/animals
+
+###
+DELETE {{host}}/api/animals/{{animal_id_1}}

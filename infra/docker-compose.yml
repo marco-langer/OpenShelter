@@ -1,0 +1,28 @@
+name: OpenShelter
+
+services:
+  db:
+    image: postgres        
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgresql
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: open-shelter
+
+  otel-collector:
+    image: otel/opentelemetry-collector
+    command: ["--config=/etc/otel/otel-collector-config.yml"]
+    volumes:
+      - ./otel-collector-config.yml:/etc/otel/otel-collector-config.yml
+    ports:
+      - 4317:4317 # OTLP gRPC receiver
+      - 4318:4318 # OTLP http receiver
+      - 80:80
+
+  seq:
+    image: datalust/seq:latest
+    ports:
+      - 5341:80
+    environment:
+      - ACCEPT_EULA=Y
